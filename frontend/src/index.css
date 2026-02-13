@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  background-color: #f8f9fa;
+}
+
+.auth-page {
+  min-height: 100vh;
+}
+
+.card-shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.score-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.roadmap-text {
+  white-space: pre-line;
+}
