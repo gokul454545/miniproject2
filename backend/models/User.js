@@ -13,7 +13,11 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, 'Please add a password']
+        required: false // Optional for Google Auth users
+    },
+    googleId: {
+        type: String,
+        required: false
     },
     privacyMaturityLevel: {
         type: String,
@@ -35,9 +39,9 @@ const userSchema = mongoose.Schema({
     timestamps: true
 });
 
-userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) {
-        next();
+userSchema.pre('save', async function () {
+    if (!this.isModified('password') || !this.password) {
+        return;
     }
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);

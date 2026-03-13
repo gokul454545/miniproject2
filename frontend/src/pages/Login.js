@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -30,6 +31,21 @@ const Login = () => {
     } catch (error) {
       console.error(error.response?.data?.message || 'Login failed');
       alert(error.response?.data?.message || 'Login failed');
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/users/google', {
+        googleToken: credentialResponse.credential,
+      });
+      if (response.data) {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error(error.response?.data?.message || 'Google Login failed');
+      alert(error.response?.data?.message || 'Google Login failed');
     }
   };
 
@@ -67,11 +83,20 @@ const Login = () => {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary w-100">
+            <button type="submit" className="btn btn-primary w-100 mb-3">
               Login
             </button>
+            <div className="d-flex justify-content-center my-3">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={() => {
+                  console.log('Login Failed');
+                  alert('Google Login Failed');
+                }}
+              />
+            </div>
           </form>
-          <p className="mt-4 mb-0 text-center text-muted">
+          <p className="mb-0 text-center text-muted">
             Don't have an account?{' '}
             <Link to="/register" className="text-decoration-none">
               Register

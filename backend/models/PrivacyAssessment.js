@@ -7,8 +7,7 @@ const privacyAssessmentSchema = mongoose.Schema({
         ref: 'User'
     },
     answers: {
-        type: Map, // Flexible structure for category: value
-        of: String, // or Number, depending on how we store answers. Using Map for flexibility.
+        type: Object, // Flexible structure for category: value
         required: true
     },
     score: {
@@ -16,8 +15,7 @@ const privacyAssessmentSchema = mongoose.Schema({
         required: true
     },
     categoryScores: {
-        type: Map, // Stores { 'Auth': 25, 'Social': 20, ... }
-        of: Number,
+        type: Object, // Stores { 'Auth': 25, 'Social': 20, ... }
         required: true
     },
     riskLevel: {

@@ -10,6 +10,8 @@ const submitAssessment = async (req, res) => {
     console.log("Submit Assessment Request Body:", req.body);
     console.log("User from Request:", req.user);
 
+    const { answers } = req.body;
+
     if (!answers) {
         return res.status(400).json({ message: 'Please provide answers' });
     }

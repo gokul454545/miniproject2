@@ -42,16 +42,17 @@ const generateAiSuggestions = async (score, riskLevel, weakAreas, categoryScores
         }
     } else {
         // Fallback Mock Response for demo purposes without API Key
+        const safeWeakAreas = Array.isArray(weakAreas) ? weakAreas : [];
         return `
             ### AI Privacy Analysis (Mock)
             
             **Personalized Advice:**
-            Your privacy score is ${score}, indicating a ${riskLevel} risk level. ${weakAreas.length > 0 ? "You should focus on correcting settings related to " + weakAreas.join(", ") + "." : "Great job maintaining your privacy!"}
+            Your privacy score is ${score}, indicating a ${riskLevel} risk level. ${safeWeakAreas.length > 0 ? "You should focus on correcting settings related to " + safeWeakAreas.join(", ") + "." : "Great job maintaining your privacy!"}
 
             **Action Plan:**
-            ${weakAreas.includes('social_media_visibility') ? "- Switch social media profiles to 'Private' or 'Friends Only'." : ""}
-            ${weakAreas.includes('2fa_enabled') ? "- Enable Two-Factor Authentication on all sensitive accounts immediately." : ""}
-            ${weakAreas.includes('location_tracking') ? "- Review app permissions and disable location services for apps that don't need it." : ""}
+            ${safeWeakAreas.includes('social_media_visibility') ? "- Switch social media profiles to 'Private' or 'Friends Only'." : ""}
+            ${safeWeakAreas.includes('2fa_enabled') ? "- Enable Two-Factor Authentication on all sensitive accounts immediately." : ""}
+            ${safeWeakAreas.includes('location_tracking') ? "- Review app permissions and disable location services for apps that don't need it." : ""}
             
             **Quick Wins:**
             - Install a password manager.

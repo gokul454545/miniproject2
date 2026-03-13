@@ -1,0 +1,29 @@
+classDiagram
+    class PrivacyAssessment {
+        +ObjectId user
+        +Map answers
+        +String answers.$*
+        +Number score
+        +Map categoryScores
+        +Number categoryScores.$*
+        +String riskLevel
+        +String weightingVersion
+        +Array weakAreas
+        +String aiSuggestions
+        +ObjectId _id
+        +Date createdAt
+        +Date updatedAt
+    }
+    PrivacyAssessment --> User : user
+    class User {
+        +String name
+        +String email
+        +String password
+        +String privacyMaturityLevel
+        +Array badges
+        +Number streak
+        +Date lastAssessmentDate
+        +ObjectId _id
+        +Date createdAt
+        +Date updatedAt
+    }
